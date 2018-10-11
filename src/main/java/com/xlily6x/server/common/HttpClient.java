@@ -21,6 +21,9 @@ import java.util.Map;
 public class HttpClient {
 
     protected static final Log logger = LogFactory.getLog(HttpClient.class);
+
+
+
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -31,6 +34,7 @@ public class HttpClient {
      * @return URL 所代表远程资源的响应结果
      */
     public static String sendGet(String url, String param) {
+
         String result = "";
         BufferedReader in = null;
         try {
@@ -43,6 +47,7 @@ public class HttpClient {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("Content-Type", "text/html;charset=UTF-8");
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
