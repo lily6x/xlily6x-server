@@ -48,10 +48,14 @@ public class HeartbeatProcessing {
                 String msg = new String(data,0,packet.getLength());
                 IPInfo ipInfo = IPUtil.getIpInfo(inetAddress.getHostAddress());
                 logger.info(ipInfo);
-                String type = msg.substring(msg.indexOf(",")+1,msg.length());
-                String port = msg.substring(0,msg.indexOf(","));
+//                String type = msg.substring(msg.indexOf(",")+1,msg.length());
+//                String port = msg.substring(0,msg.indexOf(","));
+                String msgs [] = msg.split(",");
+                String type = msgs[0];
+                String host = msgs[1];
+                String port = msgs[2];
                 //服务注册
-                ServiceInfoUtil.register(new ServiceInfo(inetAddress.getHostAddress(),Integer.parseInt(port),type,ipInfo.getCountry(),ipInfo.getCountry_id(),ipInfo.getRegion(),ipInfo.getRegion_id(),ipInfo.getIsp()));
+                ServiceInfoUtil.register(new ServiceInfo(host,Integer.parseInt(port),type,ipInfo.getCountry(),ipInfo.getCountry_id(),ipInfo.getRegion(),ipInfo.getRegion_id(),ipInfo.getIsp()));
                 logger.info("Server received data from client  : "+inetAddress.getHostAddress()+":"+cport + "  body :  "+msg);
             }
             socket.close();
