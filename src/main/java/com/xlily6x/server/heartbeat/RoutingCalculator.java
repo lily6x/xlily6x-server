@@ -6,6 +6,7 @@ import com.xlily6x.server.entity.ServiceInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @program: server
@@ -32,8 +33,16 @@ public class RoutingCalculator {
             }
         }
         if(rs.size()>0){
-            res = rs.get(0);
+            int s =getRandom(0,rs.size());
+            res = rs.get(s);
         }
         return res;
+    }
+
+    public static int getRandom(int min, int max){
+        Random random = new Random();
+        int s = random.nextInt(max) % (max - min + 1) + min;
+        return s;
+
     }
 }
