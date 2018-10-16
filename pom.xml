@@ -5,7 +5,7 @@
 
     <groupId>com.xlily6x</groupId>
     <artifactId>xlily6x-server</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>xlily6x-server</name>
