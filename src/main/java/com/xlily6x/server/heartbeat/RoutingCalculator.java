@@ -33,8 +33,6 @@ public class RoutingCalculator {
         }
         if(rs.size()>0){
             res = rs.get(0);
-        }else{
-            res = serviceInfoList.get(0);
         }
         return res;
     }
