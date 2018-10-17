@@ -46,24 +46,33 @@ public class HeartbeatProcessing {
                 int cport = packet.getPort();
 
                 String msg = new String(data,0,packet.getLength());
-                IPInfo ipInfo = IPUtil.getIpInfo(inetAddress.getHostAddress());
-                logger.info(ipInfo);
-//                String type = msg.substring(msg.indexOf(",")+1,msg.length());
-//                String port = msg.substring(0,msg.indexOf(","));
+
                 String msgs [] = msg.split(",");
                 String type = msgs[0];
                 String host = msgs[1];
                 String port = msgs[2];
-                //服务注册
-                ServiceInfoUtil.register(new ServiceInfo(host,Integer.parseInt(port),type,ipInfo.getCountry(),ipInfo.getCountry_id(),ipInfo.getRegion(),ipInfo.getRegion_id(),ipInfo.getIsp()));
-                logger.info("Server received data from client  : "+inetAddress.getHostAddress()+":"+cport + "  body :  "+msg);
+                IPInfo ipInfo = null;
+                try {
+                    ipInfo = IPUtil.getIpInfo(host);
+                } catch (Exception e) {
+                    logger.error("Get IP Info failure");
+                    logger.error(e.getMessage());
+                }
+                if(null != ipInfo){
+                    logger.info(ipInfo);
+                    //服务注册
+                    ServiceInfoUtil.register(new ServiceInfo(host,Integer.parseInt(port),type,ipInfo.getCountry(),ipInfo.getCountry_id(),ipInfo.getRegion(),ipInfo.getRegion_id(),ipInfo.getIsp()));
+                    logger.info("Server received data from client  : "+inetAddress.getHostAddress()+":"+cport + "  body :  "+msg);
+                }
             }
             socket.close();
 
         } catch (SocketException e) {
-            e.printStackTrace();
+            logger.error("Connect server exception");
+            logger.error(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Send message exception");
+            logger.error(e.getMessage());
         }
     }
 

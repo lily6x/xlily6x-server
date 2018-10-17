@@ -23,7 +23,6 @@ public class HttpClient {
     protected static final Log logger = LogFactory.getLog(HttpClient.class);
 
 
-
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -48,6 +47,8 @@ public class HttpClient {
             connection.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("Content-Type", "text/html;charset=UTF-8");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
